@@ -57,11 +57,16 @@ function AddQuestionScreen({ navigation }) {
     question: '',
     option1: '',
     option2: '',
+    option3: '',
+    option4: '',
     answer: ''
   });
 
   const handleAddQuestion = () => {
-    console.log('New Question:', formData);
+    console.log('New Question:', {
+      ...formData,
+      options: [formData.option1, formData.option2, formData.option3, formData.option4]
+    });
     navigation.goBack();
   };
 
@@ -69,16 +74,61 @@ function AddQuestionScreen({ navigation }) {
     <View style={styles.formContainer}>
       <Text style={styles.formTitle}>Add New Question</Text>
 
-      {Object.keys(formData).map((key) => (
-        <TextInput
-          key={key}
-          style={styles.input}
-          placeholder={key.charAt(0).toUpperCase() + key.slice(1)}
-          value={formData[key]}
-          onChangeText={(text) => setFormData({ ...formData, [key]: text })}
-          multiline={key === 'question'}
-        />
-      ))}
+      <TextInput
+        style={styles.input}
+        placeholder="Subject"
+        value={formData.subject}
+        onChangeText={(text) => setFormData({ ...formData, subject: text })}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Topic"
+        value={formData.topic}
+        onChangeText={(text) => setFormData({ ...formData, topic: text })}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Difficulty"
+        value={formData.difficulty}
+        onChangeText={(text) => setFormData({ ...formData, difficulty: text })}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Question Statement"
+        multiline
+        value={formData.question}
+        onChangeText={(text) => setFormData({ ...formData, question: text })}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Option 1"
+        value={formData.option1}
+        onChangeText={(text) => setFormData({ ...formData, option1: text })}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Option 2"
+        value={formData.option2}
+        onChangeText={(text) => setFormData({ ...formData, option2: text })}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Option 3"
+        value={formData.option3}
+        onChangeText={(text) => setFormData({ ...formData, option3: text })}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Option 4"
+        value={formData.option4}
+        onChangeText={(text) => setFormData({ ...formData, option4: text })}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Correct Answer (Option number)"
+        value={formData.answer}
+        onChangeText={(text) => setFormData({ ...formData, answer: text })}
+      />
       
       <TouchableOpacity style={styles.button} onPress={handleAddQuestion}>
         <Text style={styles.buttonText}>Add Question</Text>
@@ -120,13 +170,13 @@ function RemoveQuestionScreen({ navigation }) {
 
       <TextInput
         style={styles.input}
-        placeholder="Search Questions"
+        placeholder="🔍 Search Questions"
         value={removeCriteria.searchQuery}
         onChangeText={(text) => setRemoveCriteria({ ...removeCriteria, searchQuery: text })}
       />
 
       <TouchableOpacity 
-        style={[styles.button, { backgroundColor: '#ff4444' }]} 
+        style={styles.button} 
         onPress={handleRemove}
       >
         <Text style={styles.buttonText}>Remove Questions</Text>
