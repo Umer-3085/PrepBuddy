@@ -224,7 +224,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    fontSize: 22,
+    fontSize: 21,
     fontWeight: 'bold',
     marginBottom: 20,
   },
