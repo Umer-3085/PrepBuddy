@@ -27,25 +27,25 @@ function DashboardScreen({ navigation }) {
     <View style={styles.dashboardContainer}>
       <Text style={styles.title}>Teacher Dashboard</Text>
 
-      {/* Add Teacher Card */}
+      {/* Add Question Card */}
       <View style={styles.card}>
-        <Text style={styles.cardTitle}>Add Teacher</Text>
-        <Text style={styles.cardText}>Add new teacher to the system.</Text>
+        <Text style={styles.cardTitle}>Add Question</Text>
+        <Text style={styles.cardText}>Add new multiple-choice questions to the database.</Text>
         <TouchableOpacity 
           style={styles.button}
-          onPress={() => navigation.navigate('AddTeacher')}
+          onPress={() => navigation.navigate('AddQuestion')}  
         >
           <Text style={styles.buttonText}>Add Now</Text>
         </TouchableOpacity>
       </View>
 
-      {/* Remove Teacher Card */}
+      {/* Remove Question Card */}
       <View style={styles.card}>
-        <Text style={styles.cardTitle}>Remove Teacher</Text>
-        <Text style={styles.cardText}>Remove teacher from the system.</Text>
+        <Text style={styles.cardTitle}>Remove Question</Text>
+        <Text style={styles.cardText}>Remove questions from the database.</Text>
         <TouchableOpacity 
           style={styles.button}
-          onPress={() => navigation.navigate('RemoveTeacher')}
+          onPress={() => navigation.navigate('RemoveQuestion')} 
         >
           <Text style={styles.buttonText}>Remove Now</Text>
         </TouchableOpacity>
@@ -54,6 +54,144 @@ function DashboardScreen({ navigation }) {
   );
 }
 
+
+
+// Add Question Screen
+function AddQuestionScreen({ navigation }) {
+  const [formData, setFormData] = useState({
+    subject: '',
+    topic: '',
+    difficulty: '',
+    question: '',
+    option1: '',
+    option2: '',
+    option3: '',
+    option4: '',
+    answer: ''
+  });
+
+  const handleAddQuestion = () => {
+    console.log('New Question:', {
+      ...formData,
+      options: [formData.option1, formData.option2, formData.option3, formData.option4]
+    });
+    navigation.goBack();
+  };
+
+  return (
+    <View style={styles.formContainer}>
+      <Text style={styles.formTitle}>Add New Question</Text>
+
+      <TextInput
+        style={styles.input}
+        placeholder="Subject"
+        value={formData.subject}
+        onChangeText={(text) => setFormData({ ...formData, subject: text })}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Topic"
+        value={formData.topic}
+        onChangeText={(text) => setFormData({ ...formData, topic: text })}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Difficulty"
+        value={formData.difficulty}
+        onChangeText={(text) => setFormData({ ...formData, difficulty: text })}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Question Statement"
+        multiline
+        value={formData.question}
+        onChangeText={(text) => setFormData({ ...formData, question: text })}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Option 1"
+        value={formData.option1}
+        onChangeText={(text) => setFormData({ ...formData, option1: text })}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Option 2"
+        value={formData.option2}
+        onChangeText={(text) => setFormData({ ...formData, option2: text })}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Option 3"
+        value={formData.option3}
+        onChangeText={(text) => setFormData({ ...formData, option3: text })}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Option 4"
+        value={formData.option4}
+        onChangeText={(text) => setFormData({ ...formData, option4: text })}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Correct Answer (Option number)"
+        value={formData.answer}
+        onChangeText={(text) => setFormData({ ...formData, answer: text })}
+      />
+      
+      <TouchableOpacity style={styles.button} onPress={handleAddQuestion}>
+        <Text style={styles.buttonText}>Add Question</Text>
+      </TouchableOpacity>
+    </View>
+  );
+}
+
+// Remove Question Screen
+function RemoveQuestionScreen({ navigation }) {
+  const [removeCriteria, setRemoveCriteria] = useState({
+    subject: '',
+    topic: '',
+    searchQuery: ''
+  });
+
+  const handleRemove = () => {
+    console.log('Removal Criteria:', removeCriteria);
+    navigation.goBack();
+  };
+
+  return (
+    <View style={styles.formContainer}>
+      <Text style={styles.formTitle}>Remove Questions</Text>
+
+      <TextInput
+        style={styles.input}
+        placeholder="Subject"
+        value={removeCriteria.subject}
+        onChangeText={(text) => setRemoveCriteria({ ...removeCriteria, subject: text })}
+      />
+
+      <TextInput
+        style={styles.input}
+        placeholder="Topic"
+        value={removeCriteria.topic}
+        onChangeText={(text) => setRemoveCriteria({ ...removeCriteria, topic: text })}
+      />
+
+      <TextInput
+        style={styles.input}
+        placeholder="🔍 Search Questions"
+        value={removeCriteria.searchQuery}
+        onChangeText={(text) => setRemoveCriteria({ ...removeCriteria, searchQuery: text })}
+      />
+
+      <TouchableOpacity 
+        style={styles.button} 
+        onPress={handleRemove}
+      >
+        <Text style={styles.buttonText}>Remove Questions</Text>
+      </TouchableOpacity>
+    </View>
+  );
+}
 // Admin Dashboard Screen
 function AdminDashboardScreen({ navigation }) {
   return (
@@ -303,6 +441,16 @@ export default function App() {
           name="RemoveStudent" 
           component={RemoveStudentScreen}
           options={{ title: 'Remove Student' }}
+        />
+        <Stack.Screen 
+          name="AddQuestion" 
+          component={AddQuestionScreen}
+          options={{ title: 'Add Question' }}
+        />
+        <Stack.Screen 
+          name="RemoveQuestion" 
+          component={RemoveQuestionScreen}
+          options={{ title: 'Remove Questions' }}
         />
       </Stack.Navigator>
     </NavigationContainer>
