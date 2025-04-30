@@ -63,11 +63,36 @@ function AddQuestionScreen({ navigation }) {
   });
 
   const handleAddQuestion = () => {
-    console.log('New Question:', {
+    const questionData = {
       ...formData,
       options: [formData.option1, formData.option2, formData.option3, formData.option4]
+    };
+    
+    console.log('New Question:', questionData);
+    
+    // API call to add the question
+    fetch('http://localhost:8080/api/question/add', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(questionData)
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log('Response data:', data);
+      alert('Question submitted successfully!');
+      navigation.goBack();
+    })
+    .catch(error => {
+      console.error('Error adding question:', error);
+      alert('Failed to submit question. Please try again.');
     });
-    navigation.goBack();
   };
 
   return (
