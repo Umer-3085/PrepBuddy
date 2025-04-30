@@ -4,13 +4,28 @@ import { View, Text, Button, TouchableOpacity, StyleSheet, TextInput } from 'rea
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+// Import Bookmark Page
+import BookmarkPage from './BookmarkPage'; // adjust if path is different
+
 const Stack = createNativeStackNavigator();
 
 // Home Screen
 function HomeScreen({ navigation }) {
   return (
-    <View style={styles.container}>
-      <Button title="Show Dashboard" onPress={() => navigation.navigate('Dashboard')} />
+    <View style={styles.homeContainer}>
+      <TouchableOpacity 
+        style={styles.mainButton} 
+        onPress={() => navigation.navigate('Dashboard')}
+      >
+        <Text style={styles.mainButtonText}>Show Dashboard</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity 
+        style={styles.mainButton} 
+        onPress={() => navigation.navigate('Bookmarks')}
+      >
+        <Text style={styles.mainButtonText}>View Bookmarks</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -141,21 +156,11 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen 
-          name="Dashboard" 
-          component={DashboardScreen}
-          options={{ title: 'PrepBuddy' }} 
-        />
-        <Stack.Screen 
-          name="AddQuestion" 
-          component={AddQuestionScreen}
-          options={{ title: 'Add Question' }}
-        />
-        <Stack.Screen 
-          name="RemoveQuestion" 
-          component={RemoveQuestionScreen}
-          options={{ title: 'Remove Questions' }}
-        />
+        <Stack.Screen name="Dashboard" component={DashboardScreen} options={{ title: 'PrepBuddy' }} />
+        <Stack.Screen name="AddQuestion" component={AddQuestionScreen} options={{ title: 'Add Question' }} />
+        <Stack.Screen name="RemoveQuestion" component={RemoveQuestionScreen} options={{ title: 'Remove Questions' }} />
+        <Stack.Screen name="Bookmarks" component={BookmarkPage}   options={{ headerShown: false }} 
+/>
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -163,10 +168,24 @@ export default function App() {
 
 // Styles
 const styles = StyleSheet.create({
-  container: {
+  homeContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#fff',
+  },
+  mainButton: {
+    backgroundColor: '#007bff',
+    padding: 15,
+    borderRadius: 10,
+    width: '20%',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  mainButtonText: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
   },
   dashboardContainer: {
     flex: 1,
