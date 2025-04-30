@@ -8,6 +8,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String home() {
-        return "Welcome to Firebase App!";
+        // Update the welcome message
+        return "Welcome to the Spring Boot App!";
     }
 }
