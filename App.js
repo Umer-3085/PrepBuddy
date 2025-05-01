@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 // Import Bookmark Page
 import BookmarkPage from './BookmarkPage'; // adjust if path is different
+import BookmarkTestPage from './BookmarkTestPage';
 
 const Stack = createNativeStackNavigator();
 
@@ -25,6 +26,13 @@ function HomeScreen({ navigation }) {
         onPress={() => navigation.navigate('Bookmarks')}
       >
         <Text style={styles.mainButtonText}>View Bookmarks</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity 
+        style={styles.mainButton} 
+        onPress={() => navigation.navigate('BookmarkTestPage')}
+      >
+        <Text style={styles.mainButtonText}>View BookmarkTestPage</Text>
       </TouchableOpacity>
     </View>
   );
@@ -159,8 +167,8 @@ export default function App() {
         <Stack.Screen name="Dashboard" component={DashboardScreen} options={{ title: 'PrepBuddy' }} />
         <Stack.Screen name="AddQuestion" component={AddQuestionScreen} options={{ title: 'Add Question' }} />
         <Stack.Screen name="RemoveQuestion" component={RemoveQuestionScreen} options={{ title: 'Remove Questions' }} />
-        <Stack.Screen name="Bookmarks" component={BookmarkPage}   options={{ headerShown: false }} 
-/>
+        <Stack.Screen name="Bookmarks" component={BookmarkPage}   options={{ headerShown: false }} />
+        <Stack.Screen name="BookmarkTestPage" component={BookmarkTestPage}   options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
