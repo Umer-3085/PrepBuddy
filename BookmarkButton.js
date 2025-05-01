@@ -3,7 +3,7 @@ import { TouchableOpacity, ActivityIndicator, ToastAndroid } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import axios from 'axios';
 
-const BASE_URL = 'http://192.168.100.8:8080/api/bookmarks';
+const BASE_URL = 'http://localhost:8080/api/bookmarks';
 
 const BookmarkButton = ({ questionText, options, correctOption }) => {
   const [isBookmarked, setIsBookmarked] = useState(false);

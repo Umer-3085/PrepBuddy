@@ -29,7 +29,7 @@ const BookmarkPage = ({ navigation }) => {
 
   const fetchBookmarkedQuestions = async (studentID) => {
     try {
-      const backendUrl = `http://192.168.100.8:8080/api/bookmarks/${studentID}`;
+      const backendUrl = `http://localhost:8080/api/bookmarks/${studentID}`;
       const response = await fetch(backendUrl);
       const data = await response.json();
 
@@ -75,16 +75,18 @@ const BookmarkPage = ({ navigation }) => {
 
   const toggleExpand = (index) => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-    const updated = [...bookmarkedQuestions];
-    updated[index].expanded = !updated[index].expanded;
+    const updated = bookmarkedQuestions.map((q, i) => ({
+      ...q,
+      expanded: i === index ? !q.expanded : false, // toggle current, collapse others
+    }));
     setBookmarkedQuestions(updated);
   };
-
+  
   const removeBookmark = async (index) => {
     const questionText = bookmarkedQuestions[index].questionText;
 
     try {
-      const backendUrl = `http://192.168.100.8:8080/api/bookmarks/${studentID}/${encodeURIComponent(questionText)}`;
+      const backendUrl = `http://localhost:8080/api/bookmarks/${studentID}/${encodeURIComponent(questionText)}`;
       const response = await fetch(backendUrl, {
         method: 'DELETE',
       });
